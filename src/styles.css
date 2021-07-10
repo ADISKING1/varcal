@@ -1,0 +1,44 @@
+:root {
+  --clr-primary-100: #fff;
+  --clr-primary-200: #f0f0f0;
+
+  --clr-neutral-200: #101010;
+  --clr-neutral-900: #000000;
+
+  --clr-accent1: rgb(0, 0, 0);
+  --clr-accent2: rgb(163, 143, 255);
+  --clr-accent3: rgb(97, 255, 189);
+
+  --ff-primary: "Poppins", sans-serif;
+  --ff-accent: "Arial", serif;
+}
+body {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  margin: 0px;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+.no-bg {
+  background: none !important;
+}
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.eq-body {
+  display: flex;
+}
+
+.eq-col {
+  width: 50%;
+}
