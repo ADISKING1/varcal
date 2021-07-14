@@ -5,6 +5,7 @@ function EquationBody(props) {
   const [inputExpression, updateInputExpression] = useState("");
   const [generatedExpression, updateGeneratedExpression] = useState("");
   const [variableList, updateVariableList] = useState([]);
+  const [solutionList, updateSolutionList] = useState(["1"]);
 
   var tempVariableList = [];
 
@@ -14,14 +15,17 @@ function EquationBody(props) {
       ((variable[0] >= "a" && variable[0] <= "z") ||
         (variable[0] >= "A" && variable[0] <= "Z"))
     ) {
-      if (!tempVariableList.includes(variable)) {
-        tempVariableList.push(variable);
+      if (!tempVariableList.includes(" " + variable + " ")) {
+        tempVariableList.push(" " + variable + " ");
       }
     }
   };
 
   const generateEquation = () => {
+    if (inputExpression == "") updateSolutionList(["1"]);
+
     var variable = "";
+    var newInputExpression = "";
     var input = inputExpression;
     for (var i = 0; i < input.length; i++) {
       if (
@@ -31,14 +35,21 @@ function EquationBody(props) {
       ) {
         variable += input[i];
       } else {
+        if (variable == "") newInputExpression += input[i];
+        else {
+          newInputExpression += " " + variable + " " + input[i];
+        }
         checkAndAddVariable(variable);
         variable = "";
       }
     }
+    if (variable != "") newInputExpression += " " + variable + " ";
     checkAndAddVariable(variable);
     updateVariableList(tempVariableList);
+
+    updateGeneratedExpression(newInputExpression);
+    newInputExpression = "";
     tempVariableList = [];
-    updateGeneratedExpression(inputExpression);
   };
 
   return (
@@ -56,7 +67,35 @@ function EquationBody(props) {
         </div>
       </div>
       <div className="eq-col">
-        <EquationSolution variables={variableList} equation={inputExpression} />
+        {solutionList.map((i, index) => {
+          return (
+            <div key={i + index}>
+              <button
+                onClick={() => {
+                  var arr = [...solutionList];
+                  arr = [...arr.slice(0, index), ...arr.slice(index + 1)];
+                  updateSolutionList(arr);
+                }}
+              >
+                Delete
+              </button>
+              <EquationSolution
+                variables={variableList}
+                equation={generatedExpression}
+              />
+            </div>
+          );
+        })}
+
+        <button
+          onClick={() => {
+            var arr = [...solutionList];
+            arr.push("1");
+            updateSolutionList(arr);
+          }}
+        >
+          Add
+        </button>
       </div>
     </div>
   );
