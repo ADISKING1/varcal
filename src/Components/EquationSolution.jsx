@@ -4,17 +4,16 @@ import { fetchData } from "./api";
 
 function EquationSolution(props) {
   var tempVariableDictionary = {};
-  props.variables.forEach((e) => {
-    tempVariableDictionary[e] = "";
-  });
-  console.log(tempVariableDictionary);
+  // props.variables.forEach((e) => {
+  //   tempVariableDictionary[e] = "";
+  // });
+  // console.log(tempVariableDictionary);
 
   const [output, updateOutput] = useState("Output");
-  const [inputs, updateInputs] = useState({ ...tempVariableDictionary });
-
+  // const [inputs, updateInputs] = useState({});
   const solveEquation = () => {
     props.variables.map((i) => {
-      tempVariableDictionary[i] = inputs[i];
+      tempVariableDictionary[i] = props.input[i];
     });
 
     var tempEquation = props.equation;
@@ -32,20 +31,21 @@ function EquationSolution(props) {
       {props.variables.map((i) => {
         return (
           <input
+            type="number"
             placeholder={i}
             key={i}
             className={i}
             onChange={(e) => {
-              var tempInputs = { ...inputs };
+              var tempInputs = { ...props.input };
               tempInputs[i] = e.target.value;
-              updateInputs(tempInputs);
+              props.updateInput(tempInputs);
             }}
-            value={inputs[i] || ""}
+            value={(props.input && props.input[i]) || ""}
           ></input>
         );
       })}
       <button onClick={solveEquation}>Solve</button>
-      <p>{output}</p>
+      <div className="outputText">{output}</div>
     </div>
   );
 }

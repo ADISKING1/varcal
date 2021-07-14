@@ -6,6 +6,7 @@ function EquationBody(props) {
   const [generatedExpression, updateGeneratedExpression] = useState("");
   const [variableList, updateVariableList] = useState([]);
   const [solutionList, updateSolutionList] = useState(["1"]);
+  const [inputs, updateInputs] = useState([{}]);
 
   var tempVariableList = [];
 
@@ -69,19 +70,33 @@ function EquationBody(props) {
       <div className="eq-col">
         {solutionList.map((i, index) => {
           return (
-            <div key={i + index}>
+            <div key={i + index} className="equationSolution">
               <button
+                className="deleteButton"
                 onClick={() => {
                   var arr = [...solutionList];
                   arr = [...arr.slice(0, index), ...arr.slice(index + 1)];
                   updateSolutionList(arr);
+
+                  var arr2 = [...inputs];
+                  updateInputs([
+                    ...arr2.slice(0, index),
+                    ...arr2.slice(index + 1),
+                  ]);
                 }}
               >
-                Delete
+                🗑️
               </button>
               <EquationSolution
                 variables={variableList}
                 equation={generatedExpression}
+                input={inputs[index]}
+                updateInput={(param) => {
+                  var temp = [...inputs];
+                  temp[index] = param;
+                  updateInputs(temp);
+                }}
+                index={index}
               />
             </div>
           );
