@@ -1,12 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import EquationSolution from "./EquationSolution";
 
 function EquationBody(props) {
-  const [inputExpression, updateInputExpression] = useState("");
-  const [generatedExpression, updateGeneratedExpression] = useState("");
-  const [variableList, updateVariableList] = useState([]);
-  const [solutionList, updateSolutionList] = useState(["1"]);
-  const [inputs, updateInputs] = useState([{}]);
+  const [inputExpression, updateInputExpression] = useState(
+    props.data.inputExpression
+  );
+  const [generatedExpression, updateGeneratedExpression] = useState(
+    props.data.generateEquation
+  );
+  const [variableList, updateVariableList] = useState(props.data.variableList);
+  const [solutionList, updateSolutionList] = useState(props.data.solutionList);
+  const [inputs, updateInputs] = useState(props.data.inputs);
+
+  useEffect(() => {
+    props.updateData({
+      inputExpression,
+      generatedExpression,
+      variableList,
+      solutionList,
+      inputs,
+    });
+  }, [
+    inputExpression,
+    generatedExpression,
+    variableList,
+    solutionList,
+    inputs,
+  ]);
+
+  useEffect(() => {
+    if (
+      props.data.generatedExpression &&
+      props.data.generatedExpression != generatedExpression
+    ) {
+      updateInputExpression(props.data.inputExpression);
+      updateGeneratedExpression(props.data.generatedExpression);
+      updateVariableList(props.data.variableList);
+      updateSolutionList(props.data.solutionList);
+      updateInputs(props.data.inputs);
+    }
+  }, [props.data]);
 
   var tempVariableList = [];
 
@@ -23,7 +56,7 @@ function EquationBody(props) {
   };
 
   const generateEquation = () => {
-    if (inputExpression == "") updateSolutionList(["1"]);
+    if (inputExpression == "") updateSolutionList(["Output"]);
 
     var variable = "";
     var newInputExpression = "";
@@ -62,8 +95,11 @@ function EquationBody(props) {
               updateInputExpression(e.target.value);
             }}
             placeholder="Enter your Equation"
+            value={props.data.inputExpression || ""}
           ></input>
-          <button onClick={generateEquation}>Generate</button>
+          <button onClick={generateEquation} disabled={props.busy}>
+            Generate
+          </button>
           <p>{generatedExpression}</p>
         </div>
       </div>
@@ -84,18 +120,27 @@ function EquationBody(props) {
                     ...arr2.slice(index + 1),
                   ]);
                 }}
+                disabled={props.busy}
               >
-                🗑️
+                ➖
               </button>
               <EquationSolution
                 variables={variableList}
                 equation={generatedExpression}
                 input={inputs[index]}
+                output={solutionList[index]}
+                busy={props.busy}
                 updateInput={(param) => {
                   var temp = [...inputs];
                   temp[index] = param;
                   updateInputs(temp);
                 }}
+                updateOutput={(param) => {
+                  var temp = [...solutionList];
+                  temp[index] = param;
+                  updateSolutionList(temp);
+                }}
+                updateBusy={props.updateBusy}
                 index={index}
               />
             </div>
@@ -105,11 +150,12 @@ function EquationBody(props) {
         <button
           onClick={() => {
             var arr = [...solutionList];
-            arr.push("1");
+            arr.push("Output");
             updateSolutionList(arr);
           }}
+          disabled={props.busy}
         >
-          Add
+          ➕
         </button>
       </div>
     </div>

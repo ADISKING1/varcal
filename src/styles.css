@@ -51,6 +51,11 @@ select:focus {
   position: absolute;
   right: 10px;
 }
+.deleteBodyButton {
+  position: absolute;
+  left: 10px;
+  margin-top: 10px;
+}
 .equationSolution {
   background-color: lightgray;
   border-radius: 4px;
@@ -59,6 +64,14 @@ select:focus {
 }
 .outputText {
   background-color: white;
-  margin: 10px 25%;
+  margin: 5px 25%;
   border-radius: 4px;
+}
+
+.variableInput {
+  width: 90%;
+}
+.solveButton {
+  display: block;
+  margin: 4px auto;
 }

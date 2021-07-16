@@ -1,17 +1,12 @@
 //GAVP8L-QVVHU2L36A
-import { useState } from "react";
-import { fetchData } from "./api";
+import { fetchData } from "../api";
 
 function EquationSolution(props) {
   var tempVariableDictionary = {};
-  // props.variables.forEach((e) => {
-  //   tempVariableDictionary[e] = "";
-  // });
-  // console.log(tempVariableDictionary);
 
-  const [output, updateOutput] = useState("Output");
-  // const [inputs, updateInputs] = useState({});
   const solveEquation = () => {
+    props.updateOutput("Loading...");
+    props.updateBusy(true);
     props.variables.map((i) => {
       tempVariableDictionary[i] = props.input[i];
     });
@@ -22,7 +17,9 @@ function EquationSolution(props) {
     });
 
     fetchData(tempEquation).then((d) => {
-      updateOutput(d);
+      props.updateOutput(d);
+
+      props.updateBusy(false);
     });
   };
 
@@ -34,7 +31,7 @@ function EquationSolution(props) {
             type="number"
             placeholder={i}
             key={i}
-            className={i}
+            className="variableInput"
             onChange={(e) => {
               var tempInputs = { ...props.input };
               tempInputs[i] = e.target.value;
@@ -44,8 +41,14 @@ function EquationSolution(props) {
           ></input>
         );
       })}
-      <button onClick={solveEquation}>Solve</button>
-      <div className="outputText">{output}</div>
+      <button
+        className="solveButton"
+        onClick={solveEquation}
+        disabled={props.busy}
+      >
+        Solve
+      </button>
+      <div className="outputText">{props.output}</div>
     </div>
   );
 }
