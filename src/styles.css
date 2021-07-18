@@ -5,7 +5,7 @@
   --clr-neutral-200: #303030;
   --clr-neutral-900: #000000;
 
-  --clr-accent1: rgb(0, 0, 0);
+  --clr-accent1: lightgreen;
   --clr-accent2: rgb(163, 143, 255);
   --clr-accent3: rgb(97, 255, 189);
 
@@ -112,10 +112,27 @@ select:focus {
   border-radius: 0;
   width: 90%;
 }
-
+.outputContainer {
+  display: flex;
+}
+.copyButton {
+  padding: 10px;
+  text-align: right;
+  flex: 1 1;
+}
+.copyButton > button {
+  height: 25px;
+  width: 25px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--clr-neutral-200);
+  cursor: pointer;
+}
 .outputText {
   width: auto;
   overflow-y: hidden;
+  flex: 9 1;
 }
 
 .generatedEquation {
@@ -188,7 +205,7 @@ select:focus {
   text-align: right;
 }
 .innerSolveButton {
-  padding-right: 2.5%;
+  padding-right: 10px;
 }
 .solveButton > button {
   margin: 5px 0px 0px 0px;
@@ -199,4 +216,71 @@ select:focus {
   font-family: monospace;
   cursor: pointer;
   border-radius: 4px;
+}
+
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: var(--clr-accent1);
+  color: var(--clr-neutral-200);
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+  border-radius: 4px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.25s, fadeout 0.25s 1.75s;
+  animation: fadein 0.25s, fadeout 0.25s 1.75s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }
