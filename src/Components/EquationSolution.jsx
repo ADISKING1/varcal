@@ -31,7 +31,7 @@ function EquationSolution(props) {
             type="number"
             placeholder={i}
             key={i}
-            className="variableInput"
+            className="variableInput expressionInput"
             onChange={(e) => {
               var tempInputs = { ...props.input };
               tempInputs[i] = e.target.value;
@@ -41,14 +41,17 @@ function EquationSolution(props) {
           ></input>
         );
       })}
-      <button
-        className="solveButton"
-        onClick={solveEquation}
-        disabled={props.busy}
-      >
-        Solve
-      </button>
-      <div className="outputText">{props.output}</div>
+      <div className="solveButton innerSolveButton">
+        <button
+          onClick={solveEquation}
+          disabled={props.busy || (props.equation ? false : true)}
+        >
+          Solve
+        </button>
+      </div>
+      <div className="variableInput expressionInput outputText">
+        {props.output}
+      </div>
     </div>
   );
 }

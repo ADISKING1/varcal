@@ -2,7 +2,7 @@
   --clr-primary-100: #fff;
   --clr-primary-200: #f0f0f0;
 
-  --clr-neutral-200: #101010;
+  --clr-neutral-200: #303030;
   --clr-neutral-900: #000000;
 
   --clr-accent1: rgb(0, 0, 0);
@@ -16,7 +16,9 @@ body {
   text-align: center;
   font-family: "Poppins", sans-serif;
   margin: 0px;
+  background-color: #202120;
 }
+
 input:focus,
 textarea:focus,
 select:focus {
@@ -35,43 +37,161 @@ select:focus {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+.header {
+  height: 50vh;
+  padding: 20vh 0 0 10vw;
+  box-sizing: border-box;
+  text-align: left;
+  background: lightgreen;
+  color: var(--clr-neutral-200);
+}
+.heading {
+  font-size: 1.62rem;
+}
+
+.subheading {
+  font-size: 1rem;
+}
+
+.workArea {
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.equationBody {
+  margin: 25px;
+  border-radius: 4px;
+  background-color: var(--clr-neutral-200);
+  border: 1px solid #606060;
+}
+@media (min-width: 720px) {
+  .eq-body {
+    display: flex;
+  }
+  .eq-col-2 {
+    max-width: 57%;
+  }
+}
+@media (max-width: 721px) {
+  .eq-col-2 {
+    max-width: unset;
+  }
+}
 .eq-body {
-  display: flex;
+  border-radius: 4px;
 }
 
-.eq-col {
-  width: 50%;
-  border: 2px solid darkslategray;
-  margin: 4px;
-  border-radius: 4px;
-  padding-bottom: 4px;
+.eq-col-1,
+.eq-col-2 {
+  margin: unset;
+  padding: 0 40px;
 }
 
-.deleteButton {
-  position: absolute;
-  right: 10px;
+.eq-col-1 {
+  flex: 3;
 }
-.deleteBodyButton {
-  position: absolute;
-  left: 10px;
-  margin-top: 10px;
+
+.eq-col-2 {
+  flex: 4;
 }
-.equationSolution {
-  background-color: lightgray;
+
+.expressionInput {
+  border: none;
+  width: calc(100% - 20px);
+  resize: vertical;
+  letter-spacing: 1px;
   border-radius: 4px;
-  padding: 4px;
-  margin: 10px;
-}
-.outputText {
-  background-color: white;
-  margin: 5px 25%;
-  border-radius: 4px;
+  font-size: 1rem;
+  padding: 10px;
+  font-family: monospace;
 }
 
 .variableInput {
+  margin-bottom: 4px;
+  border-bottom: 2px solid darkgray;
+  border-radius: 0;
   width: 90%;
 }
-.solveButton {
+
+.outputText {
+  width: auto;
+  overflow-y: hidden;
+}
+
+.generatedEquation {
+  color: white;
+  border-bottom: 2px solid lightgreen;
+  padding: 4px;
+}
+
+.deleteButton {
   display: block;
-  margin: 4px auto;
+  padding: 10px;
+  text-align: right;
+}
+.deleteButton > button {
+  height: 25px;
+  width: 25px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: lightgreen;
+}
+.minusButton {
+  display: block;
+  padding: 0 10px;
+  text-align: right;
+}
+.minusButton > button {
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: lightgreen;
+}
+
+.addButton {
+  display: block;
+  padding: 10px;
+  text-align: right;
+}
+.addButton > button {
+  background: lightgreen;
+  color: black;
+  border-radius: 4px;
+  padding: 5px 10px;
+  border: none;
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.equationExpression {
+  border-radius: 4px;
+  margin: 10px;
+}
+
+.equationSolution {
+  background-color: white;
+  border-radius: 4px;
+  padding: 4px;
+  margin: 10px;
+  border-left: 7px solid lightgreen;
+}
+.solveButton {
+  text-align: right;
+}
+.innerSolveButton {
+  padding-left: 2.5%;
+}
+.solveButton > button {
+  display: block;
+  margin: 5px 0px 0px 0px;
+  border: none;
+  background: lightgreen;
+  font-size: 1rem;
+  padding: 10px;
+  font-family: monospace;
+  cursor: pointer;
+  border-radius: 4px;
 }
