@@ -165,18 +165,18 @@ function EquationBody(props) {
             </div>
           );
         })}
-      </div>
-      <div className="addButton">
-        <button
-          onClick={() => {
-            var arr = [...solutionList];
-            arr.push("Output");
-            updateSolutionList(arr);
-          }}
-          disabled={props.busy}
-        >
-          Solve again
-        </button>
+        <div className="addButton">
+          <button
+            onClick={() => {
+              var arr = [...solutionList];
+              arr.push("Output");
+              updateSolutionList(arr);
+            }}
+            disabled={props.busy}
+          >
+            + New Input
+          </button>
+        </div>
       </div>
     </div>
   );
